@@ -19,7 +19,6 @@ document.querySelectorAll('.keypad p').forEach(element=>{
 function processNum(int){
     if(clearDisplay){display.innerText='';clearDisplay=false;}
     display.innerText += int;
-    console.log(`This is number ${int}`);
     if(waitInput){waitInput=false};
 }
 
@@ -52,7 +51,6 @@ function processOperator(ops){
                 waitInput = true;
                 break;
             default:
-                console.log(firstNum);
                     if(waitInput===false && isFirstNumber()){
                         tempOperator = ops;
                         waitInput = true;
@@ -66,7 +64,6 @@ function processOperator(ops){
                     clearDisplay = true;
                 break;
     }
-    console.log(`This is operator ${ops}`);
 }
 
 function getResult(){
@@ -88,7 +85,6 @@ function getResult(){
             return firstNum;
             break;
         default:
-            console.log("NoT recognized");
             break;
     }
 }
