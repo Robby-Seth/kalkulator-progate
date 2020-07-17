@@ -1,5 +1,5 @@
 let firstNum = null;
-let waitSecondInput = false;
+let waitInput = false;
 let tempOperator = null;
 let clearDisplay=true;
 const display = document.querySelector(".display-text");
@@ -20,7 +20,7 @@ function processNum(int){
     if(clearDisplay){display.innerText='';clearDisplay=false;}
     display.innerText += int;
     console.log(`This is number ${int}`);
-    if(waitSecondInput){waitSecondInput=false};
+    if(waitInput){waitInput=false};
 }
 
 function processOperator(ops){
@@ -30,6 +30,7 @@ function processOperator(ops){
                 firstNum = null;
                 tempOperator = null;
                 clearDisplay = true;
+                waitInput = true;
                 break;
             case '.':
                 if(display.innerText.indexOf('.')===-1){
@@ -40,7 +41,6 @@ function processOperator(ops){
             case '%':
                 if(firstNum!==null){
                     const num = convertNumDisplay()*firstNum/100;
-                    console.log(num);
                     display.innerText = num;
                 }
                 break;
@@ -49,16 +49,18 @@ function processOperator(ops){
                 firstNum = null;
                 tempOperator = null;
                 clearDisplay = true;
+                waitInput = true;
                 break;
             default:
-                    if(isFirstNumber()){
+                console.log(firstNum);
+                    if(waitInput===false && isFirstNumber()){
                         tempOperator = ops;
-                        waitSecondInput = true;
+                        waitInput = true;
                     }
                     else{
                         //mengecek apakah pengguna sudah memasukkan lagi angka
                         //setelah  mengklik salah satu operator
-                        if(!waitSecondInput){display.innerText = getResult();waitSecondInput = true;}
+                        if(!waitInput&&firstNum !== null){display.innerText = getResult();waitInput = true;}
                         tempOperator = ops;
                     }
                     clearDisplay = true;
